@@ -56,7 +56,7 @@ jobs:
         run: ls -l
 
       - name: Terraform Init
-        uses: hashicorp/terraform-github-actions@master
+        uses: hashicorp/terraform-github-actions@v0.4.0
         with:
           tf_actions_subcommand: init
           tf_actions_version: 1.0
