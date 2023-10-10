@@ -1,6 +1,6 @@
 region  = "ap-northeast-1"
-project = "poc"
-env_name = "poc"
+project = "gpoc"
+env_name = "dev"
 
 // network details
 vpc_cidr = "10.0.0.0/16"
@@ -21,6 +21,3 @@ availability_zone_2 = "ap-northeast-1c"
 // Back Office
 bo_fe_ami_id = "ami-03a1b4db103179555"
 bo_fe_instance_type = "t2.small"
-
-// db instance details
-master_instance_class = "db.t3.small"

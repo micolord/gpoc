@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy POC
+name: Deploy dev
 permissions:
   security-events: write
 
@@ -8,7 +8,7 @@ permissions:
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "POC" ]
+    branches: [ "dev" ]
   #pull_request:
     #branches: [ "Development" ]
 

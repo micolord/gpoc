@@ -1,7 +1,9 @@
 terraform {
   backend "s3" {
-    bucket = "state-test-poc"
+    encrypt = true    
+    bucket = "dev-gpoc-tfstate"
+    dynamodb_table = "dev-gpoc-tfstate-lock-dynamo"
+    key    = "terraform.tfstate"
     region = "ap-northeast-1"
-    key    = "state-test-poc/"
   }
 }
