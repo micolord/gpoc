@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: POC
+        working-directory: dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -44,7 +44,7 @@ jobs:
     needs: checkout
     defaults:
       run:
-        working-directory: POC
+        working-directory: dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
@@ -60,7 +60,7 @@ jobs:
         with:
           tf_actions_subcommand: init
           tf_actions_version: 0.12.13
-          tf_actions_working_dir: 'POC'
+          tf_actions_working_dir: 'dev'
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -70,14 +70,14 @@ jobs:
         with:
           tf_actions_subcommand: validate
           tf_actions_version: 0.12.13
-          tf_actions_working_dir: 'POC'
+          tf_actions_working_dir: 'dev'
 
   terrascan_job:
     runs-on: ubuntu-latest
     needs: checkout
     defaults:
       run:
-        working-directory: POC
+        working-directory: dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
@@ -93,7 +93,7 @@ jobs:
         uses: tenable/terrascan-action@main
         with:
           iac_type: 'terraform'
-          iac_dir: 'POC'
+          iac_dir: 'dev'
           iac_version: 'v12'
           policy_type: 'aws'
           only_warn: 'false'
@@ -119,7 +119,7 @@ jobs:
     needs: [terraform_validate, terrascan_job]
     defaults:
       run:
-        working-directory: POC
+        working-directory: dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
@@ -135,7 +135,7 @@ jobs:
         with:
           tf_actions_subcommand: init
           tf_actions_version: 0.12.13
-          tf_actions_working_dir: 'POC'
+          tf_actions_working_dir: 'dev'
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -145,7 +145,7 @@ jobs:
         with:
           tf_actions_subcommand: plan
           tf_actions_version: 0.12.13
-          tf_actions_working_dir: 'POC'
+          tf_actions_working_dir: 'dev'
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -154,10 +154,10 @@ jobs:
      # The type of runner that the job will run on
     runs-on: ubuntu-latest
     needs: [terraform_plan]
-    environment: poc
+    environment: dev
     defaults:
       run:
-        working-directory: POC
+        working-directory: dev
      # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
@@ -173,7 +173,7 @@ jobs:
         with:
           tf_actions_subcommand: init
           tf_actions_version: 0.12.13
-          tf_actions_working_dir: 'POC'
+          tf_actions_working_dir: 'dev'
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -183,7 +183,7 @@ jobs:
         with:
           tf_actions_subcommand: apply
           tf_actions_version: 0.12.13
-          tf_actions_working_dir: 'POC'
+          tf_actions_working_dir: 'dev'
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
