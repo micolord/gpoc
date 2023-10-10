@@ -38,14 +38,6 @@ variable "private_subnet_cidr_3" {
     description = "Private subnet CIDR block"
 }
 
-variable "private_subnet_cidr_4" {
-    description = "Private subnet CIDR block"
-}
-
-variable "private_subnet_cidr_5" {
-    description = "Private subnet CIDR block"
-}
-
 variable "availability_zone_1" {
     description = "Availability Zone A"
 }
