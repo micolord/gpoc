@@ -117,7 +117,7 @@ jobs:
           name: checkout-artifact
           path: ./
   
-     - name: View Contents
+      - name: View Contents
         run: ls -l
 
       - name: Terraform Init
