@@ -70,6 +70,6 @@ variable "bo_fe_instance_type" {
     description = "Instance type"
 }
 
-variable "master_instance_class" {
-    description = "Instance type"
-}
+#variable "master_instance_class" {
+ #   description = "Instance type"
+#}
