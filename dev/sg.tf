@@ -3,7 +3,7 @@ module "GO_sg" {
 
   name        = "${var.env_name}-${var.project}-GO-sg"
   description = "Security group for web-server with HTTP ports open within VPC"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = var.vpc_id
 
   ingress_cidr_blocks = ["10.0.0.0/16"]
 }

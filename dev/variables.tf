@@ -14,6 +14,10 @@ variable "vpc_cidr" {
     description = "VPC CIDR block"
 }
 
+variable "vpc_id" {
+    description = "VPC ID"
+}
+
 variable "public_subnet_cidr_1" {
     description = "Public subnet CIDR block"
 }
