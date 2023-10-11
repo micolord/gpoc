@@ -8,7 +8,7 @@ module "ec2_instance" {
   key_name               = "user1"
   monitoring             = true
   vpc_security_group_ids = [module.GO_sg.security_group_id]
-  subnet_id              = var.private_subnet_cidr_1
+  subnet_id              = [module.vpc.private_subnets[0]]
 
   tags = {
     Terraform   = "true"
