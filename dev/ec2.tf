@@ -6,7 +6,7 @@ module "ec2_instance" {
   instance_type          = var.ec2_ami_id
   key_name               = "user1"
   monitoring             = true
-  vpc_security_group_ids = module.GO_sg.security_group_id
+  vpc_security_group_ids = [module.GO_sg.security_group_id]
   subnet_id              = var.private_subnet_cidr_1
 
   tags = {
