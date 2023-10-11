@@ -5,5 +5,5 @@ module "GO_sg" {
   description = "Security group for web-server with HTTP ports open within VPC"
   vpc_id      = "vpc-015d0d851ac305f9d"
 
-  ingress_cidr_blocks = ["10.0.0.0/16"]
+  ingress_cidr_blocks = ["0.0.0.0/0"]
 }

@@ -8,6 +8,7 @@ module "ec2_instance" {
   key_name               = "user1"
   monitoring             = true
   user_data              = file("userdata.sh")
+  associate_public_ip_address = true
 
   vpc_security_group_ids = [module.GO_sg.security_group_id]
   subnet_id              = var.public_subnet_id_1
