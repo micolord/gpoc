@@ -20,5 +20,5 @@ availability_zone_2 = "ap-northeast-1c"
 
 
 // Back Office
-ec2_ami_id = "ami-08a706ba5ea257141"
+ec2_ami_id = "ami-0adac58024a7f03bb"
 ec2_instance_type = "t2.small"

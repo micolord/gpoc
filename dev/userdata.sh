@@ -2,7 +2,7 @@
 # variable will be populated by terraform template
 db_username="wpadm"
 db_user_password="Globe123"
-db_name= "godb"
+db_name="godb"
 db_RDS="localhost"
 # install LAMP Server
 yum update -y
