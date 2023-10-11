@@ -7,16 +7,15 @@ db_RDS=localhost
 # install LAMP Server
 yum update -y
 #install apache server and mysql client
-yum install -y httpd
-yum install -y mysql
+
+amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+sudo yum install -y httpd mariadb-server
 
 sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL ON $db_name.* TO '$db_username'@'%';FLUSH PRIVILEGES;"
  
 #first enable php7.xx from  amazon-linux-extra and install it
 
-amazon-linux-extras enable php7.4
 yum clean metadata
-yum install -y php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,fpm,intl,zip,imap,devel}
 #install imagick extension
 yum -y install gcc ImageMagick ImageMagick-devel ImageMagick-perl
 pecl install imagick
