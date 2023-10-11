@@ -69,14 +69,6 @@ jobs:
         id: validate
         run: terraform validate
 
-      - name: Change File Permission
-        run: chmod -R 777 .terraform/
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: checkout-artifact
-          path: ./  
-
   terraform_plan:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -92,6 +84,21 @@ jobs:
       - name: View Contents
         run: ls -l
 
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "dynamic_env"
+          replace: "dev"
+          regex: false
+          include: "backend.tf"    
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Terraform Plan
         id: plan
         run: terraform plan -var-file=config/dev/terraform.tfvars -out=dev-plan.out
@@ -101,9 +108,9 @@ jobs:
 
       - uses: actions/upload-artifact@master
         with:
-          name: checkout-artifact
-          path: ./
-
+          name: plan-output
+          path: dev-plan.out
+          
   terraform_apply:
      # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -116,9 +123,28 @@ jobs:
         with:
           name: checkout-artifact
           path: ./
-  
+
+      - uses: actions/download-artifact@master
+        with:
+          name: plan-output
+           
       - name: View Contents
         run: ls -l
+
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "dynamic_env"
+          replace: "dev"
+          regex: false
+          include: "backend.tf"    
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Apply
         id: apply
