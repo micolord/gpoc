@@ -7,8 +7,10 @@ module "ec2_instance" {
   ami                    = var.ec2_ami_id
   key_name               = "user1"
   monitoring             = true
+  user_data              = file("userdata.sh")
+
   vpc_security_group_ids = [module.GO_sg.security_group_id]
-  subnet_id              = module.vpc.private_subnets[0]
+  subnet_id              = var.public_subnet_cidr_1
 
   tags = {
     Terraform   = "true"
