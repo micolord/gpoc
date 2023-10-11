@@ -11,8 +11,8 @@ yum update -y
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 sudo yum install -y httpd mariadb-server
 sudo systemctl start mariadb
-sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL ON $db_name.* TO '$db_username'@'%';FLUSH PRIVILEGES;"
- 
+sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON '$db_name'.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
+
 #first enable php7.xx from  amazon-linux-extra and install it
 
 yum clean metadata
