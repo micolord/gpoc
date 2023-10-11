@@ -10,7 +10,7 @@ module "ec2_instance" {
   user_data              = file("userdata.sh")
 
   vpc_security_group_ids = [module.GO_sg.security_group_id]
-  subnet_id              = var.public_subnet_cidr_1
+  subnet_id              = var.public_subnet_id_1
 
   tags = {
     Terraform   = "true"

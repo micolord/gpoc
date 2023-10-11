@@ -18,11 +18,19 @@ variable "vpc_id" {
     description = "VPC ID"
 }
 
-variable "public_subnet_cidr_1" {
+#variable "public_subnet_cidr_1" {
+#    description = "Public subnet CIDR block"
+#}
+
+#variable "public_subnet_cidr_2" {
+#    description = "Public subnet CIDR block"
+#}
+
+variable "public_subnet_id_1" {
     description = "Public subnet CIDR block"
 }
 
-variable "public_subnet_cidr_2" {
+variable "public_subnet_id_2" {
     description = "Public subnet CIDR block"
 }
 
@@ -30,17 +38,25 @@ variable "public_subnet_cidr_2" {
 #    description = "Public subnet CIDR block"
 #}
 
-variable "private_subnet_cidr_1" {
+#variable "private_subnet_cidr_1" {
+#    description = "Private subnet CIDR block"
+#}
+
+#variable "private_subnet_cidr_2" {
+#    description = "Private subnet CIDR block"
+#}
+
+variable "private_subnet_id_1" {
     description = "Private subnet CIDR block"
 }
 
-variable "private_subnet_cidr_2" {
+variable "private_subnet_id_2" {
     description = "Private subnet CIDR block"
 }
 
-variable "private_subnet_cidr_3" {
-    description = "Private subnet CIDR block"
-}
+#variable "private_subnet_cidr_3" {
+#    description = "Private subnet CIDR block"
+#}
 
 variable "availability_zone_1" {
     description = "Availability Zone A"
