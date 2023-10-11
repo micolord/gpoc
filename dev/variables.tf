@@ -46,11 +46,11 @@ variable "availability_zone_2" {
     description = "Availability Zone B"
 }
 
-variable "bo_fe_ami_id" {
+variable "ec2_ami_id" {
     description = "Instance AMI"
 }
 
-variable "bo_fe_instance_type" {
+variable "ec2_instance_type" {
     description = "Instance type"
 }
 
