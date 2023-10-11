@@ -10,7 +10,7 @@ yum update -y
 
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 sudo yum install -y httpd mariadb-server
-
+sudo systemctl start mariadb
 sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL ON $db_name.* TO '$db_username'@'%';FLUSH PRIVILEGES;"
  
 #first enable php7.xx from  amazon-linux-extra and install it
@@ -81,4 +81,6 @@ sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/Al
 #Make apache  autostart and restart apache
 systemctl enable  httpd.service
 systemctl restart httpd.service
+systemctl enable  mariadb
+systemctl restart mariadb
 echo WordPress Installed
