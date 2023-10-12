@@ -68,9 +68,6 @@ EOF
 #define('WP_MEMORY_LIMIT', '128M');
 #PHP
 
-
-
-
 # Change permission of /var/www/html/
 chown -R ec2-user:apache /var/www/html
 chmod -R 774 /var/www/html
@@ -82,5 +79,6 @@ sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/Al
 systemctl enable  httpd.service
 systemctl restart httpd.service
 systemctl enable  mariadb
-systemctl restart mariadb
+
+
 echo WordPress Installed

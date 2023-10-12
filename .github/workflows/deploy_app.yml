@@ -4,6 +4,7 @@ permissions:
 on:
   push:
     branches: [ "dev" ]
+    paths: ['app/**']
 jobs:
   build:
     name: Build
@@ -16,4 +17,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-                    echo "Hello World 2" > /var/www/html/index.html
+                    cd /home/deploy/git/gpoc/
+                    git pull origin dev
+                    cp -R app/* /var/www/html/wp-content/themes/twentytwentythree/* 
