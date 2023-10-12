@@ -19,4 +19,4 @@ jobs:
         script: |
                     cd /home/deploy/git/gpoc/
                     git pull origin dev
-                    cp -R app/* /var/www/html/wp-content/themes/twentytwentythree/* 
+                    cp -R app/* /var/www/html/wp-content/themes/twentytwentythree/
