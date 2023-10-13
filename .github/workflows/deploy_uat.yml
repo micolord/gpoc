@@ -1,6 +1,6 @@
 
 
-name: Deploy dev
+name: Deploy uat
 permissions:
   security-events: write
 
@@ -54,7 +54,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "dynamic_env"
-          replace: "dev"
+          replace: "uat"
           regex: false
           include: "backend.tf"    
 
@@ -88,7 +88,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "dynamic_env"
-          replace: "dev"
+          replace: "uat"
           regex: false
           include: "backend.tf"    
 
@@ -101,7 +101,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file=config/dev/terraform.tfvars -out=dev-plan.out
+        run: terraform plan -var-file=config/uat/terraform.tfvars -out=uat-plan.out
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -109,13 +109,13 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: plan-output
-          path: dev-plan.out
+          path: uat-plan.out
           
   terraform_apply:
      # The type of runner that the job will run on
     runs-on: ubuntu-latest
     needs: [terraform_plan]
-    environment: dev
+    environment: uat
 
      # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -135,7 +135,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "dynamic_env"
-          replace: "dev"
+          replace: "uat"
           regex: false
           include: "backend.tf"    
 
@@ -148,7 +148,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply --auto-approve dev-plan.out
+        run: terraform apply --auto-approve uat-plan.out
         env:
           AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
