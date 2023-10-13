@@ -5,7 +5,7 @@ module "ec2_instance" {
 
   instance_type          = var.ec2_instance_type
   ami                    = var.ec2_ami_id
-  key_name               = var.key_pair
+  key_name               = "user1"
   monitoring             = true
   user_data              = file("userdata.sh")
   associate_public_ip_address = true
