@@ -16,3 +16,4 @@ availability_zone_2 = "ap-northeast-1c"
 // EC2 Details
 ec2_ami_id = "ami-0adac58024a7f03bb"
 ec2_instance_type = "t2.small"
+key_pair = "user2"
