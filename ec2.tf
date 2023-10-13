@@ -5,7 +5,7 @@ module "ec2_instance" {
 
   instance_type          = var.ec2_instance_type
   ami                    = var.ec2_ami_id
-  key_name               = "user1"
+  key_name               = "user2"
   monitoring             = true
   user_data              = file("userdata.sh")
   associate_public_ip_address = true
@@ -14,7 +14,7 @@ module "ec2_instance" {
   subnet_id              = var.public_subnet_id_1
 
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Environment = var.env_name
+    Project = var.project
   }
 }
