@@ -10,8 +10,14 @@ yum update -y
 
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 sudo yum install -y httpd mariadb-server
+sudo yum install -y git
+
 sudo systemctl start mariadb
-sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON '$db_name'.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
+sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+cd /home/deploy/
+aws s3 cp s3://uploadssluat/godbmain.sql .
+sudo mysqldmp -uroot godb < godbmain.sql
+#sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON $db_name.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
 
 #first enable php7.xx from  amazon-linux-extra and install it
 
@@ -28,10 +34,8 @@ EOF
 
 systemctl restart php-fpm.service
 
-
-
-
 systemctl start  httpd
+
 
 
 # Change OWNER and permission of directory /var/www
@@ -47,6 +51,17 @@ wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
 cp -r wordpress/* /var/www/html/
 # # Create wordpress configuration file and update database value
+
+mkdir git
+cd git
+git clone https://github.com/micolord/gpoc.git
+cd gpoc
+git config --global user.email "53897214+micolord@users.noreply.github.com"
+git config --global user.name "micolord"
+git checkout -b dev
+git reset --hard origin/dev
+
+
 cd /var/www/html
 cp wp-config-sample.php wp-config.php
 sed -i "s/database_name_here/$db_name/g" wp-config.php
@@ -67,6 +82,8 @@ EOF
 #define( 'FS_METHOD', 'direct' );
 #define('WP_MEMORY_LIMIT', '128M');
 #PHP
+
+
 
 # Change permission of /var/www/html/
 chown -R ec2-user:apache /var/www/html
