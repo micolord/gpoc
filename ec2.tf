@@ -14,7 +14,7 @@ module "ec2_instance" {
   subnet_id              = var.public_subnet_id_1
 
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Environment = var.env_name
+    Project = var.project
   }
 }

@@ -3,7 +3,7 @@ permissions:
   security-events: write
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "uat" ]
     paths: ['app/**']
 jobs:
   build:
