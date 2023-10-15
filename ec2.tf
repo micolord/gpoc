@@ -9,7 +9,7 @@ module "ec2_instance" {
   monitoring             = true
   user_data              = file("userdata.sh")
   associate_public_ip_address = true
-  iam_instance_profile   = "arn:aws:iam::824910182745:instance-profile/MySessionManagerRole"
+  iam_instance_profile   = "MySessionManagerRole"
   vpc_security_group_ids = [module.GO_sg.security_group_id]
   subnet_id              = var.public_subnet_id_1
 
