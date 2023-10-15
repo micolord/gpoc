@@ -16,7 +16,7 @@ sudo systemctl start mariadb
 sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
 
 aws s3 cp s3://uploadssluat/godbmain.sql .
-sudo mysqldmp -uroot godb < godbmain.sql
+sudo mysqldump -uroot godb < godbmain.sql
 #sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON $db_name.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
 
 #first enable php7.xx from  amazon-linux-extra and install it
