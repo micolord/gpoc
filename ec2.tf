@@ -1,5 +1,5 @@
-module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+module "gpoc_environment" {
+  source  = "github.com/micolord/gpoc-module.git?ref=v1.0.0"
 
   name = "${var.env_name}-${var.project}-GO"
 
