@@ -73,7 +73,9 @@ jobs:
   terrascan_job:
     runs-on: ubuntu-latest
     needs: [checkout]
-    environment: dev
+     defaults:
+      run:
+        working-directory: GPOC
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       - uses: actions/download-artifact@master
@@ -89,7 +91,7 @@ jobs:
         uses: tenable/terrascan-action@main
         with:
           iac_type: 'terraform'
-          iac_dir: 'gpoc'
+          iac_dir: 'GPOC'
           iac_version: 'v12'
           policy_type: 'aws'
           only_warn: 'false'
