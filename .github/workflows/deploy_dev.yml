@@ -151,20 +151,6 @@ jobs:
         with:
           name: plan-output
           path: dev-plan.out
-
-    
-   approval:
-    runs-on: ubuntu-latest
-    needs: [terraform_plan]
-    steps:
-      - name: send approval
-        uses: varu3/slack-approval@main
-        env:
-          SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN }}
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
-          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-        timeout-minutes: 10
           
   terraform_apply:
      # The type of runner that the job will run on
