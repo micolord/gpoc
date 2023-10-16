@@ -75,7 +75,7 @@ jobs:
     needs: [checkout]
     defaults:
       run:
-        working-directory: POC
+        working-directory: gpoc
     
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
