@@ -8,7 +8,10 @@ db_RDS="localhost"
 yum update -y
 #install apache server and mysql client
 
-ec2_ip = $(curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/ami-id)
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+
+ec2_ip = $(curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-ipv4)
 echo $ec2_ip
 
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
@@ -20,7 +23,10 @@ sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8
 
 aws s3 cp s3://uploadssluat/godbmain.sql .
 sudo mysql godb < godbmain.sql
-#sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON $db_name.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
+sudo mysql -e "use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON $db_name.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
+sudo mysql -e "UPDATE wp_options SET option_value= 'http://$ec2_ip' WHERE option_name= 'siteurl';"
+sudo mysql -e "UPDATE wp_options SET option_value= 'http://$ec2_ip' WHERE option_name= 'home';"
+
 
 #first enable php7.xx from  amazon-linux-extra and install it
 
