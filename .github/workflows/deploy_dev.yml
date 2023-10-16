@@ -89,7 +89,7 @@ jobs:
         uses: tenable/terrascan-action@main
         with:
           iac_type: 'terraform'
-          iac_dir: 'gpoc'
+          iac_dir: 'dev'
           iac_version: 'v12'
           policy_type: 'aws'
           only_warn: 'false'
