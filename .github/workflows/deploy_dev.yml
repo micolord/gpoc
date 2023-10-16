@@ -85,7 +85,7 @@ jobs:
         iac_version: 'v14'
         policy_type: 'aws'
         only_warn: true
-        sarif_upload: true
+        #sarif_upload: true
         #non_recursive:
         #iac_dir:
         #policy_path:
@@ -93,10 +93,7 @@ jobs:
         #config_path:
         #webhook_url:
         #webhook_token:
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: terrascan.sarif
+  
 
 
   terraform_plan:
