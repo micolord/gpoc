@@ -1,5 +1,5 @@
 module "gpoc_environment" {
-  source  = "github.com/micolord/gpoc-module.git?ref=v1.0.2"
+  source  = "github.com/micolord/gpoc-module.git?ref=v1.0.4"
 
   vpc_id      = var.vpc_id
   ec2_instance_type          = var.ec2_instance_type
