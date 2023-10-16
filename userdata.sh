@@ -8,6 +8,9 @@ db_RDS="localhost"
 yum update -y
 #install apache server and mysql client
 
+ec2_ip = $(curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/ami-id)
+echo $ec2_ip
+
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 sudo yum install -y httpd mariadb-server
 sudo yum install -y git
@@ -45,6 +48,7 @@ find /var/www -type d -exec chmod 2775 {} \;
 find /var/www -type f -exec chmod 0664 {} \;
 
 
+
 # #**********************Installing Wordpress manually********************************* 
 # # Download wordpress package and extract
 wget https://wordpress.org/latest.tar.gz
@@ -72,6 +76,7 @@ cat <<EOF >>/var/www/html/wp-config.php
 define( 'FS_METHOD', 'direct' );
 define('WP_MEMORY_LIMIT', '128M');
 EOF
+
 
 #**********************Installing Wordpress using WP CLI********************************* 
 #curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
