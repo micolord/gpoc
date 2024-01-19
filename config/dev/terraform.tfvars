@@ -1,5 +1,6 @@
 region  = "ap-northeast-1"
 project = "gpoc"
+env_name = "dev"
 
 // network details
 vpc_id = "vpc-0099502de8eb846c2"
