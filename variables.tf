@@ -6,9 +6,9 @@ variable "project" {
     description = "Project name"
 }
 
-variable "env_name" {
-    description = "Environment Name"
-}
+#variable "env_name" {
+#    description = "Environment Name"
+#}
 
 variable "vpc_id" {
     description = "VPC ID"
