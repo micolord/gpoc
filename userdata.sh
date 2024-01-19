@@ -8,16 +8,25 @@ db_RDS="localhost"
 yum update -y
 #install apache server and mysql client
 
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+
+EC2IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-ipv4)
+echo $EC2IP
+
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 sudo yum install -y httpd mariadb-server
 sudo yum install -y git
 
 sudo systemctl start mariadb
 sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
-cd /home/deploy/
+
 aws s3 cp s3://uploadssluat/godbmain.sql .
-sudo mysqldmp -uroot godb < godbmain.sql
-#sudo mysql -e  "CREATE DATABASE $db_name DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON $db_name.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
+sudo mysql godb < godbmain.sql
+sudo mysql -e "use $db_name;create user '$db_username'@'localhost' identified by '$db_user_password';GRANT ALL PRIVILEGES ON $db_name.* TO '$db_username'@'localhost';FLUSH PRIVILEGES;"
+sudo mysql -e "use $db_name;UPDATE wp_options SET option_value= 'http://$EC2IP' WHERE option_name= 'siteurl';"
+sudo mysql -e "use $db_name;UPDATE wp_options SET option_value= 'http://$EC2IP' WHERE option_name= 'home';"
+
 
 #first enable php7.xx from  amazon-linux-extra and install it
 
@@ -72,6 +81,7 @@ cat <<EOF >>/var/www/html/wp-config.php
 define( 'FS_METHOD', 'direct' );
 define('WP_MEMORY_LIMIT', '128M');
 EOF
+
 
 #**********************Installing Wordpress using WP CLI********************************* 
 #curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
