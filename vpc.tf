@@ -81,33 +81,33 @@ resource "alicloud_route_table_attachment" "rtb_attachment2" {
 }
 
 // NEW RTB
-resource "alicloud_route_table" "rtb_2" {
-  vpc_id      = module.vpc.vpc_id
-  name        = "${var.env_name}-${var.project}-rtb-custom"
-  description = "GW Access"
-}
+#resource "alicloud_route_table" "rtb_2" {
+#  vpc_id      = module.vpc.vpc_id
+#  name        = "${var.env_name}-${var.project}-rtb-custom"
+#  description = "GW Access"
+#}
 
-resource "alicloud_route_entry" "rtb_2_nat_entry" {
-  route_table_id        = alicloud_route_table.rtb_2.id
-  destination_cidrblock = "0.0.0.0/0"
-  nexthop_type          = "NatGateway"
-  nexthop_id            = alicloud_nat_gateway.int_nat_gw1.id
-}
+#resource "alicloud_route_entry" "rtb_2_nat_entry" {
+#  route_table_id        = alicloud_route_table.rtb_2.id
+#  destination_cidrblock = "0.0.0.0/0"
+#  nexthop_type          = "NatGateway"
+#  nexthop_id            = alicloud_nat_gateway.int_nat_gw1.id
+#}
 
-resource "alicloud_route_table_attachment" "rtb_2_attachment" {
-  vswitch_id     = module.vpc.vswitch_ids[1]
-  route_table_id = alicloud_route_table.rtb_2.id
-}
+#resource "alicloud_route_table_attachment" "rtb_2_attachment" {
+#  vswitch_id     = module.vpc.vswitch_ids[1]
+#  route_table_id = alicloud_route_table.rtb_2.id
+#}
 
-resource "alicloud_route_table_attachment" "rtb_2_attachment2" {
-  vswitch_id     = module.vpc.vswitch_ids[3]
-  route_table_id = alicloud_route_table.rtb_2.id
-}
+#resource "alicloud_route_table_attachment" "rtb_2_attachment2" {
+#  vswitch_id     = module.vpc.vswitch_ids[3]
+#  route_table_id = alicloud_route_table.rtb_2.id
+#}
 
-resource "alicloud_route_entry" "rtb_2_nat_entry2" {
-  route_table_id        = module.vpc.this_route_table_id
-  destination_cidrblock = "0.0.0.0/0"
-  nexthop_type          = "NatGateway"
-  nexthop_id            = alicloud_nat_gateway.int_nat_gw2.id
-}
+#resource "alicloud_route_entry" "rtb_2_nat_entry2" {
+#  route_table_id        = module.vpc.this_route_table_id
+#  destination_cidrblock = "0.0.0.0/0"
+#  nexthop_type          = "NatGateway"
+#  nexthop_id            = alicloud_nat_gateway.int_nat_gw2.id
+#}
 
