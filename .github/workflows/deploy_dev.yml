@@ -180,7 +180,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply --auto-approve prod-plan.out
+        run: terraform apply --auto-approve dev-plan.out
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
