@@ -1,4 +1,4 @@
-// alibaba backend configuration for terraforms
+// alibaba backend configuration for terraform
 terraform {
   backend "oss" {
     bucket = "dynamic_env-state-bucket-kmxx"
