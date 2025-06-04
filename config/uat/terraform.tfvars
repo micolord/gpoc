@@ -1,4 +1,4 @@
-region  = "ap-southeast-6"
+region  = "ap-southeast-1"
 project = "imba"
 env_name = "uat"
 
