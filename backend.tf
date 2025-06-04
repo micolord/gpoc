@@ -1,9 +1,8 @@
+// alibaba backend configuration for terraform
 terraform {
-  backend "s3" {
-    encrypt = true    
-    bucket = "dynamic_env-gpoc-tfstate"
-    dynamodb_table = "dynamic_env-gpoc-tfstate-lock-dynamo"
-    key    = "terraform.tfstate"
-    region = "ap-northeast-1"
+  backend "oss" {
+    bucket = "dynamic_env-state-bucket-kmxx"
+    key   = "dynamic_env-state.tfstate"
+    region = "ap-southeast-1"
   }
 }
