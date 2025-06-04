@@ -1,27 +1,41 @@
-name: Deploy Dev
+
+
+name: Deploy dev
 permissions:
   security-events: write
 
+
 on:
+
   push:
     branches: [ "dev" ]
 
 jobs:
+  # This workflow contains a single job called "build"
   checkout:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
       - name: View Contents
         run: ls -l
+
       - uses: actions/upload-artifact@master
         with:
           name: checkout-artifact
           path: ./
 
   terraform_validate:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     needs: checkout
-   
+  
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
         with:
@@ -42,24 +56,26 @@ jobs:
           find: "dynamic_env"
           replace: "dev"
           regex: false
-          include: "terraform/alicloud/backend.tf"      
+          include: "backend.tf"      
 
       - name: Terraform Init
         id: init
-        run: terraform -chdir=terraform/alicloud init
+        run: terraform init
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
 
       - name: Terraform Validate
         id: validate
-        run: terraform -chdir=terraform/alicloud validate
+        run: terraform validate
 
 
   terraform_plan:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     needs: [terraform_validate]
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
         with:
@@ -75,7 +91,7 @@ jobs:
           find: "dynamic_env"
           replace: "dev"
           regex: false
-          include: "terraform/alicloud/backend.tf"    
+          include: "backend.tf"    
 
       - name: Find and Replace Creds
         uses: jacobtomlinson/gha-find-replace@v3
@@ -83,17 +99,18 @@ jobs:
           find: "dynamic_random_password"
           replace: ${{ secrets.ALICLOUD_RANDOM_PASSWORD }}
           regex: false
+          #include: "backend.tf"    
 
       - name: Terraform Init
         id: init
-        run: terraform -chdir=terraform/alicloud init
+        run: terraform init
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
 
       - name: Terraform Plan
         id: plan
-        run: terraform -chdir=terraform/alicloud plan -var-file=../../config/dev/terraform.tfvars -out=dev-plan.out
+        run: terraform plan -var-file=config/dev/terraform.tfvars -out=dev-plan.out
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
@@ -101,13 +118,30 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: plan-output
-          path: terraform/alicloud/dev-plan.out
+          path: dev-plan.out
+
+
+  #approval:
+  #  runs-on: ubuntu-latest
+  #  needs: [terraform_plan]
+  #  steps:
+  #    - name: send approval
+  #      uses: varu3/slack-approval@main
+  #      env:
+  #        SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN }}
+  #        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  #        SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
+  #        SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+  #      timeout-minutes: 10
 
           
   terraform_apply:
+     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     needs: [terraform_plan]
     environment: dev
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/download-artifact@master
         with:
@@ -117,7 +151,6 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: plan-output
-          path: "terraform/alicloud"
            
       - name: View Contents
         run: ls -l
@@ -128,18 +161,18 @@ jobs:
           find: "dynamic_env"
           replace: "dev"
           regex: false
-          include: "terraform/alicloud/backend.tf"      
+          include: "backend.tf"    
 
       - name: Terraform Init
         id: init
-        run: terraform -chdir=terraform/alicloud init
+        run: terraform init
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
 
       - name: Terraform Apply
         id: apply
-        run: terraform -chdir=terraform/alicloud apply --auto-approve dev-plan.out
+        run: terraform apply --auto-approve dev-plan.out
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
