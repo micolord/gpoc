@@ -110,7 +110,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file=config/prod/terraform.tfvars -out=dev-plan.out
+        run: terraform plan -var-file=config/dev/terraform.tfvars -out=dev-plan.out
         env:
           ALICLOUD_ACCESS_KEY:  ${{ secrets.ALICLOUD_ACCESS_KEY }}
           ALICLOUD_SECRET_KEY:  ${{ secrets.ALICLOUD_SECRET_KEY }}
