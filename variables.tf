@@ -1,56 +1,123 @@
-variable "region" {
-    description = "AWS deployment region"
-}
-
-variable "project" {
-    description = "Project name"
-}
-
+// PROJECT NETWORK VARIABLES
 variable "env_name" {
     description = "Environment Name"
 }
 
-variable "vpc_id" {
-    description = "VPC ID"
+variable "project" {
+    description = "PROJECT NAME"
 }
 
-#variable "public_subnet_cidr_1" {
-#    description = "Public subnet CIDR block"
-#}
-
-#variable "public_subnet_cidr_2" {
-#    description = "Public subnet CIDR block"
-#}
-
-variable "public_subnet_id_1" {
-    description = "Public subnet CIDR block"
+variable "region" {
+    description = "REGION"
 }
 
-#variable "public_subnet_cidr_3" {
-#    description = "Public subnet CIDR block"
-#}
-
-#variable "private_subnet_cidr_1" {
-#    description = "Private subnet CIDR block"
-#}
-
-#variable "private_subnet_cidr_2" {
-#    description = "Private subnet CIDR block"
-#}
-
-#variable "private_subnet_cidr_3" {
-#    description = "Private subnet CIDR block"
-#}
-
-
-variable "ec2_ami_id" {
-    description = "Instance AMI"
+variable "vpc_cidr" {
+    description = "VPC CIDR"
 }
 
-variable "ec2_instance_type" {
-    description = "Instance type"
+variable "priv_a" {
+    description = "PRIVATE SWITCH"
 }
 
-#variable "master_instance_class" {
- #   description = "Instance type"
-#}
+variable "priv_b" {
+    description = "PRIVATE SWITCH"
+}
+
+variable "priv_c" {
+    description = "PRIVATE SWITCH"
+}
+
+variable "pub_a" {
+    description = "PUBLIC SWITCH"
+}
+
+variable "az_a" {
+    description = "AVAILABILITY ZONE"
+}
+
+variable "az_b" {
+    description = "AVAILABILITY ZONE"
+}
+
+variable "cert_id" {
+    description = "CERTIFICATE ID"
+}
+
+// PROJECT INSTANCE VARIABLES
+variable "image_id" {
+    description = "ECS IMAGE ID"
+}
+
+variable "gl_fe_image_id" {
+    description = "ECS IMAGE ID"
+}
+
+variable "gl_be_image_id" {
+    description = "ECS IMAGE ID"
+}
+
+variable "bo_fe_image_id" {
+    description = "ECS IMAGE ID"
+}
+
+variable "bo_be_image_id" {
+    description = "ECS IMAGE ID"
+}
+
+variable "jp_image_id" {
+    description = "ECS IMAGE ID"
+}
+
+
+variable "gl_fe_domain" {
+    description = "GL FE DOMAIN"
+}
+
+variable "gl_be_domain" {
+    description = "GL BE DOMAIN"
+}
+
+variable "bo_fe_domain" {
+    description = "BO FE DOMAIN"
+}
+
+variable "bo_be_domain" {
+    description = "BO BE DOMAIN"
+}
+
+variable "jobproc_domain" {
+    description = "JP DOMAIN"
+}
+
+
+// PROJECT DB VARIABLES
+variable "db_instance_type" {
+    description = "DATABASE INSTANCE TYPE"
+}
+variable "db_instance_storage" {
+    description = "DATABASE INSTANCE STORAGE"
+}
+
+// PROJECT BRIDGE INSTANCE VARIABLES
+variable "bridge_image_id" {
+    description = "BRIDGE INSTANCE STORAGE"
+}
+variable "db_category" {
+    description = "DB CATEGORY"
+}
+variable "db_engine_version" {
+    description = "DB VERSION"
+}
+
+variable "bridge_vpc_cidr" {
+    description = "VPC CIDR"
+}
+
+variable "bridge_pub_a" {
+    description = "PUBLIC SWITCH"
+}
+
+variable "bridge_az_a" {
+    description = "AVAILABILITY ZONE"
+}
+
