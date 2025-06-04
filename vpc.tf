@@ -80,7 +80,7 @@ resource "alicloud_route_table_attachment" "rtb_attachment2" {
   route_table_id = module.vpc.this_route_table_id 
 }
 
-// NEW RTB Commented
+// NEW RTB Com
 #resource "alicloud_route_table" "rtb_2" {
 #  vpc_id      = module.vpc.vpc_id
 #  name        = "${var.env_name}-${var.project}-rtb-custom"
