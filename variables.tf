@@ -1,56 +1,64 @@
-variable "region" {
-    description = "AWS deployment region"
-}
-
-variable "project" {
-    description = "Project name"
-}
-
 variable "env_name" {
     description = "Environment Name"
 }
 
-variable "vpc_id" {
-    description = "VPC ID"
+variable "project" {
+    description = "PROJECT NAME"
 }
 
-#variable "public_subnet_cidr_1" {
-#    description = "Public subnet CIDR block"
-#}
-
-#variable "public_subnet_cidr_2" {
-#    description = "Public subnet CIDR block"
-#}
-
-variable "public_subnet_id_1" {
-    description = "Public subnet CIDR block"
+variable "region" {
+    description = "REGION"
 }
 
-#variable "public_subnet_cidr_3" {
-#    description = "Public subnet CIDR block"
-#}
-
-#variable "private_subnet_cidr_1" {
-#    description = "Private subnet CIDR block"
-#}
-
-#variable "private_subnet_cidr_2" {
-#    description = "Private subnet CIDR block"
-#}
-
-#variable "private_subnet_cidr_3" {
-#    description = "Private subnet CIDR block"
-#}
-
-
-variable "ec2_ami_id" {
-    description = "Instance AMI"
+variable "vpc_cidr" {
+    description = "VPC CIDR"
 }
 
-variable "ec2_instance_type" {
-    description = "Instance type"
+variable "priv_a" {
+    description = "PRIVATE SWITCH"
 }
 
-#variable "master_instance_class" {
- #   description = "Instance type"
-#}
+variable "priv_b" {
+    description = "PRIVATE SWITCH"
+}
+
+variable "priv_c" {
+    description = "PRIVATE SWITCH"
+}
+
+variable "pub_a" {
+    description = "PUBLIC SWITCH"
+}
+
+variable "az_a" {
+    description = "AVAILABILITY ZONE"
+}
+
+variable "gl_fe_domain" {
+    description = "GL FE Domain"
+}
+
+variable "gl_be_domain" {
+    description = "GL BE Domain"
+}
+
+variable "bo_fe_domain" {
+    description = "BO FE Domain"
+}
+
+variable "bo_be_domain" {
+    description = "BO BE Domain"
+}
+
+variable "jobproc_domain" {
+    description = "Jobproc Domain"
+}
+
+variable "socket_domain" {
+    description = "Socket Domain"
+}
+
+variable "cert_id" {
+    description = "Cert ID"
+}
+

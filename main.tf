@@ -1,4 +1,4 @@
-provider "aws" {
+provider "alicloud" {
     region = var.region
 }
 
