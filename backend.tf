@@ -1,7 +1,9 @@
 terraform {
-  backend "oss" {
-    bucket = "dev-state-bucket-rcbcpoc"
-    key   = "dev-state.tfstate"
-    region = "ap-southeast-1"
+  backend "s3" {
+    encrypt = true    
+    bucket = "dynamic_env-gpoc-tfstate"
+    #dynamodb_table = "dynamic_env-gpoc-tfstate-lock-dynamo"
+    #key    = "terraform.tfstate"
+    region = "ap-northeast-1"
   }
 }
